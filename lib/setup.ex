@@ -31,12 +31,10 @@ defmodule Simulation do
     state = %{state | schedulers: Enum.map(1..state.num_schedulers, fn _ -> launch_scheduler() end)}
     state = %{state | nodes: Enum.map(state.schedulers, fn s_pid -> launch_node(s_pid) end)}
 
-    :timer.sleep(500)
     Enum.map(
-      0..length(state.nodes)-1,
+      0..length(state.schedulers)-1,
       fn i ->
-        node = Enum.at(state.nodes, i)
-        send(Enum.at(state.nodes, i), {:update_nodes, List.delete_at(state.nodes, i)}) end
+        send(Enum.at(state.schedulers, i), {:update_schedulers, List.delete_at(state.schedulers, i)}) end
     )
 
     :timer.sleep(500)

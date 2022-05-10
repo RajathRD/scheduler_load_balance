@@ -9,7 +9,7 @@ defmodule StealTest do
 
     # make sure that length of client_config is same as number of schedulers
     # [duration, interval]
-    client_config = [[500, 200], [100, 200]]
+    client_config = [[100, 500], [500, 100]]
 
     Enum.map(
       0..length(client_config)-1,
@@ -22,7 +22,7 @@ defmodule StealTest do
           duration=duration,
           timeout=timeout,
           id=i*n_jobs,
-          n=i*n_jobs + n_jobs
+          n=i*n_jobs + n_jobs - 1
         ) end)
       end
     )

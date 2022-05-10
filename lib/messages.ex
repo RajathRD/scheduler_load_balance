@@ -116,3 +116,63 @@ defmodule Register.ReplyRPC do
     }
   end
 end
+
+
+defmodule WorkSteal.RequestRPC do
+  defstruct(
+    node: nil,
+    load: nil
+  )
+
+  def new(node, load) do
+    %WorkSteal.RequestRPC{
+      node: node,
+      load: load
+    }
+  end
+end
+
+defmodule WorkSteal.ReplyRPC do
+
+  defstruct(
+    node: nil,
+    accept: nil,
+    payload: nil
+  )
+
+  def new(node, accept, payload) do
+    %WorkSteal.ReplyRPC{
+      node: node,
+      accept: accept,
+      payload: payload
+    }
+  end
+end
+
+defmodule WorkShed.RequestRPC do
+  defstruct(
+    node: nil,
+    load: nil
+  )
+
+  def new(node, load) do
+    %WorkShed.RequestRPC{
+      node: node,
+      load: load
+    }
+  end
+end
+
+defmodule WorkShed.ReplyRPC do
+  defstruct(
+    node: nil,
+    accept: nil
+  )
+
+  def new(node, accept) do
+    %WorkShed.ReplyRPC{
+      node: node,
+      accept: accept
+    }
+  end
+end

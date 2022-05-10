@@ -91,13 +91,12 @@ defmodule Node do
     loop(state)
   end
 
-
   defp log_job(state, job) do
     # log_message = "#{inspect(job.client)},#{inspect(self())},#{inspect(job.scheduler)},#{job.id},#{job.arrival_time - state.life_start_time},#{job.duration},#{job.start_time- state.life_start_time},#{job.finish_time- state.life_start_time},#{job.finish_time - job.arrival_time}"
-    log_message = "#{job.id},#{job.arrival_time - state.life_start_time},#{job.duration},#{job.start_time- state.life_start_time},#{job.finish_time- state.life_start_time},#{job.finish_time - job.arrival_time}\n"
+    log_message = "#{job.id},#{inspect(job.scheduler)},#{job.arrival_time - state.life_start_time},#{job.duration},#{job.start_time- state.life_start_time},#{job.finish_time- state.life_start_time},#{job.finish_time - job.arrival_time}\n"
     IO.write(state.trace_log_file, log_message)
-    log_message = "ID: #{job.id}, Arrival: #{job.arrival_time - state.life_start_time}, Duration: #{job.duration}, Start Time: #{job.start_time- state.life_start_time}, Finish Time: #{job.finish_time- state.life_start_time}, JCT: #{job.finish_time - job.arrival_time}"
-    IO.puts(log_message)
+    log_message = "ID: #{job.id}, #{inspect(job.scheduler)},Arrival: #{job.arrival_time - state.life_start_time}, Duration: #{job.duration}, Start Time: #{job.start_time- state.life_start_time}, Finish Time: #{job.finish_time- state.life_start_time}, JCT: #{job.finish_time - job.arrival_time}"
+    # IO.puts(log_message)
     # %{state | log: state.log ++ [job]}
   end
 
@@ -143,11 +142,6 @@ defmodule Node do
         success: success
       } ->
         IO.puts("Node #{inspect(self())} - Registered to #{inspect(scheduler)} successefully")
-        loop(state)
-
-      {:update_nodes, nodes} ->
-        state = store_other_nodes(state, nodes)
-        IO.puts("#{inspect(self())} stored: #{inspect(nodes)}")
         loop(state)
     end
   end
