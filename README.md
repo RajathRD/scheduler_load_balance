@@ -1,9 +1,10 @@
 
 Simulation of Work Stealing and Work Shedding in FCFS schedulers
 
-<center>
-<img src="./simulation_arch.png"/>
-</center>
+<p align="center">
+  <img src="./simulation_arch.png"/>
+</p>
+
 
 The simulator is setup as given above. Each Client publishes (either n jobs or perpetually) to one scheduler at a predefined rate as given in ./test/steal_test.ex. Each scheduler schedules a job in it's own core/node/machine. All jobs generated are assumed to take up all resources in the machine, i.e, only one job can run in a node at a time. There's no network loss/delay and all schedulers are working in parralel.
 
@@ -82,7 +83,9 @@ Stolen jobs breach the above. Eg: Scheduler 164 works on job id 12 as given in r
 |5  |#PID<0.165.0>|3031        |100     |3899      |4091       |1060|
 
 # Results
-![alt text](./result.png)
+<p align="center">
+  <img src="./result.png"/>
+</p>
 
 Naive Work Stealing by just using job counts in queues performs better than all approaches on average.
 
