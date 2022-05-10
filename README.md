@@ -1,8 +1,9 @@
 
 Simulation of Work Stealing and Work Shedding in FCFS schedulers
 
-
-![alt text](./simulation_arch.png)
+<center>
+<img src="./simulation_arch.png"/>
+</center>
 
 The simulator is setup as given above. Each Client publishes (either n jobs or perpetually) to one scheduler at a predefined rate as given in ./test/steal_test.ex. Each scheduler schedules a job in it's own core/node/machine. All jobs generated are assumed to take up all resources in the machine, i.e, only one job can run in a node at a time. There's no network loss/delay and all schedulers are working in parralel.
 
