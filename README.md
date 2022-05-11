@@ -6,17 +6,17 @@ Simulation of Work Stealing and Work Shedding in FCFS schedulers
 </p>
 
 
-The simulator is setup as given above. Each Client publishes (either n jobs or perpetually) to one scheduler at a predefined rate as given in ./test/steal_test.ex. Each scheduler schedules a job in it's own core/node/machine. All jobs generated are assumed to take up all resources in the machine, i.e, only one job can run in a node at a time. There's no network loss/delay and all schedulers are working in parralel.
+The simulator is setup as given above. Each Client publishes (either n jobs or perpetually) to one scheduler at a predefined rate as given in ./test/steal_test.ex. Each scheduler schedules a job in it's own core/node/machine. All jobs generated are assumed to take up all resources in the machine, i.e, only one job can run in a node at a time. There's no network loss/delay and all schedulers are working in parallel.
 
 There are four kinds of algorithms considered in this simulation:
 
 1. No Balancing: In this approach, each scheduler receives a job from a client and only it alone is responsible for scheduling the task in the machine/core it can view.
 
-2. Work Stealing (num jobs): When a scheduler is idle, i.e, it has no more jobs to schedule, it triggers a work stealing request to a random scheduler. If the random scheduler has work (more than 1 job), it accepts the steal and sends back half it's queue (rear-end). Note: We don't use load (total duration of all tasks in the queue), we only use number of jobs.
+2. Work Stealing (num jobs): When a scheduler is idle, i.e, it has no more jobs to schedule, it triggers a work stealing request to a random scheduler. If the random scheduler has work (more than 1 job), it accepts the steal and sends back half it's queue (rear-end). Note: I don't use load (total duration of all tasks in the queue), I only use number of jobs.
 
-3. Work Shedding (num jobs): When a scheduler is overloaded, i.e, it has >= threshold of 4 jobs in it's queue, it triggers a work shedding request to a random scheduler. If the random scheduler has no work. Then it replies with an accept and triggers the Work Stealing protocol (as in 2) to steal half of work from triggering scheduler.
+3. Work Shedding (num jobs): When a scheduler is overloaded, i.e, it has >= threshold of 4 jobs in it's queue, it triggers a work shedding request to a random scheduler. If the random scheduler has no work, it replies with an accept and triggers the Work Stealing protocol (as in 2) to steal half of work from triggering scheduler.
 
-4. Work Shedding (load): Same as 3, but here we use a different threshold = load, i.e, total duration of the jobs currently in the queue. If any scheduler has jobs amounting to more than 650ms, then it triggers a work shedding request to a random scheduler. If the random scheduler's load (total duration) is half of the scheduler which triggered the RPC, then it accepts the work and triggers work stealing protocol.
+4. Work Shedding (load): Same as 3, but here I use a different threshold = load, i.e, total duration of the jobs currently in the queue. If any scheduler has jobs amounting to more than 650ms, it triggers a work shedding request to a random scheduler. If the random scheduler's load (total duration) is half of the scheduler which triggered the RPC, it accepts the work and triggers work stealing protocol.
 
 The protocols are triggered every 50 ms by each scheduler and start getting triggered after a slack of 500ms from start of the simulation. Please check the top of the ./lib/scheduler.ex for these constants. 
 
