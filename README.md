@@ -30,7 +30,7 @@ The protocol can be seen at the bottom of the ./lib/scheduler.ex: Line 214 onwar
 
 Set @balance_type in ./lib/scheduler.ex to :steal for work stealing, :shed for work shedding (uses load by default), :none or anything else for no balancing.
 
-In ./test/steal_test.ex: Line 12, you may give your own rates for job production. Currently, it's set at [[100, 500], [500, 100]], this mean, client 1 will publish jobs of 100 ms duration every 500 ms to scheduler 1 and client 2 will publish jobs of 500 ms duration every 100 ms to scheduler 1. This is a good example as there's ample opportunities for triggering the above protocols.
+In ./test/steal_test.ex: Line 12, you may give your own rates for job production. Currently, it's set at [[100, 500], [500, 100]], this mean, client 1 will publish jobs of 100 ms duration every 500 ms to scheduler 1 and client 2 will publish jobs of 500 ms duration every 100 ms to scheduler 2. This is a good example as there's ample opportunities for triggering the above protocols.
 
 # Using the code
 
@@ -54,7 +54,9 @@ Success paths of stealing and shedding a printed in stdout.
 ## Trace for Work Stealing
 
 There are 20 jobs in total that are generated. 
+
 Scheduler 1: PID: 164 is responsible for job ids 0-9
+
 Scheduler 2: PID: 165 is responsible for job ids 10-19
 
 Stolen jobs breach the above. Eg: Scheduler 164 works on job id 12 as given in row 2. Also in row 3.
@@ -91,7 +93,7 @@ Naive Work Stealing by just using job counts in queues performs better than all 
 
 Work Shedding using load information comes very close and has better cap on max JCT.
 
-Both provide 2x better Job Completion Times on average vs no balancing.
+Both provide 1.5-2x better Job Completion Times on average vs no balancing.
 
 # Reference
 Referred only for base algorithm of work stealing and work shedding (Page 4):
