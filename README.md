@@ -18,7 +18,7 @@ There are four kinds of algorithms considered in this simulation:
 
 4. Work Shedding (load): Same as 3, but here we use a different threshold = load, i.e, total duration of the jobs currently in the queue. If any scheduler has jobs amounting to more than 650ms, then it triggers a work shedding request to a random scheduler. If the random scheduler's load (total duration) is half of the scheduler which triggered the RPC, then it accepts the work and triggers work stealing protocol.
 
-The protocols are triggered every 50 ms by each scheduler. Please check the top of the ./lib/scheduler.ex for these constants. 
+The protocols are triggered every 50 ms by each scheduler and start getting triggered after a slack of 500ms from start of the simulation. Please check the top of the ./lib/scheduler.ex for these constants. 
 
 # The core of the implementation
 
